@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar producto</title>
+</head>
+<body>
+    <h1>Registrar producto</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <p>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                {{ field }}
+                {{ field.errors }}
+            </p>
+        {% endfor %}
+
+        <button type="submit">Guardar producto</button>
+        <a href="{% url 'lista_productos' %}">Regresar al listado</a>
+    </form>
+</body>
+</html>
