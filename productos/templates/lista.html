@@ -2,36 +2,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de productos</title>
+    <title>Productos</title>
 </head>
 <body>
-    <h1>Sistema de productos</h1>
+    <h1>Lista de Productos</h1>
+    <a href="/productos/">Nuevo Producto</a>
+    <hr>
+        {% for producto in productos %}
+            <h3>{{ producto.nombre }}</h3>
+            <p>{{ producto.categoria }}</p>
+            <p>{{ producto.precio }}</p>
+            <p>{{ producto.cantidad }}</p>
 
-    <a href="{% url 'nuevo_producto' %}">Registrar producto</a>
+        <a href="/productos/detalle/{{ producto.id }}/">Ver</a>
+        <a href="/productos/editar/{{ producto.id }}/">Editar</a>
+        <a href="/productos/eliminar/{{ producto.id }}/">Eliminar</a>
+    <hr>
 
-    {% if productos %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for producto in productos %}
-                <tr>
-                    <td>{{ producto.nombre }}</td>
-                    <td>{{ producto.categoria }}</td>
-                    <td>{{ producto.precio }}</td>
-                    <td>{{ producto.cantidad }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Todavía no hay productos registrados.</p>
-    {% endif %}
+    {% empty %}
+        <p>No hay Productos.</p>
+    {% endfor %}
+
 </body>
 </html>

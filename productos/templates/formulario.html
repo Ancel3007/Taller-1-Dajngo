@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registrar producto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <h1>Registrar producto</h1>
-
+    <h1>Productos</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.non_field_errors }}
-
-        {% for field in form %}
-            <p>
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
-                {{ field }}
-                {{ field.errors }}
-            </p>
-        {% endfor %}
-
-        <button type="submit">Guardar producto</button>
-        <a href="{% url 'lista_productos' %}">Regresar al listado</a>
+        <p>
+            <label> Nombre:</label><br>
+            <input type="text" name="nombre" value="{{producto.nombre|default:''}}" required>
+        </p>
+        <p>
+            <label> Categoria:</label><br>
+            <input type="text" name="categoria" value="{{producto.categoria|default:''}}" required>
+        </p>
+        <p>
+            <label> Precio:</label><br>
+            <input type="number" name="precio" value="{{producto.precio|default:''}}" required>
+        </p>
+        <p>
+            <label> Cantidad:</label><br>
+            <input type="number" name="cantidad" value="{{producto.cantidad|default:''}}" required>
+        </p>
+        <p>
+            <label> Estado:</label><br>
+            <input type="text" name="estado" value="{{producto.estado|default:''}}" required>
+        </p>
+        <button type="submit">Enviar</button>
+        
+        <a href="/productos/lista/">
+        Listado de Productos
+        </a>
     </form>
 </body>
 </html>
