@@ -10,9 +10,9 @@ Aplicación web desarrollada con Django para registrar y listar productos almace
 - Git y GitHub
 
 ## Funcionalidades
-- Listado de productos.
-- Registro de nuevos productos.
-- Crud de productos.
+- Listado de productos y categoria.
+- Registro de nuevos productos y categoria.
+- Crud de productos y categoria.
 - Validación de precio y cantidad.
 - Almacenamiento mediante Django ORM.
 - Navegación entre listado y los distintos formularios.
@@ -30,7 +30,9 @@ python manage.py runserver
 
 Abrir en el navegador: http://127.0.0.1:8000/
 
-Formulario: http://127.0.0.1:8000/productos/lista/
+Listado/Productos: http://127.0.0.1:8000/productos/lista/
+
+Listado/Categoria: http://127.0.0.1:8000/categoria/lista/
 
 ## Git
 

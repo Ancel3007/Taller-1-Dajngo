@@ -1,26 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Formulario Categoría</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --border-color: #e5e5e5;
+            --accent-color: #000000;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 50px auto;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        form {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-color);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.85;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+    </style>
 </head>
 <body>
-    <h1>Categorias:</h1>
+
+    <h1>{% if categoria %}Editar{% else %}Nueva{% endif %} Categoría</h1>
+
     <form method="post">
         {% csrf_token %}
-        <p>
-            <label> Nombre:</label><br>
-            <input type="text" name="nombre" value="{{categoria.nombre|default:''}}" required>
-        </p>
-        <p>
-            <label> Observaciones:</label><br>
-            <input type="text" name="observaciones" value="{{categoria.observaciones|default:''}}" required>
-        </p>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value="{{ categoria.nombre|default:'' }}" required autocomplete="off">
+        </div>
 
-        <button type="submit">Enviar</button>
-        
-        <a href="/categoria/lista/">Listado de Categorias</a>
+        <div class="form-group">
+            <label for="observaciones">Observaciones</label>
+            <input type="text" id="observaciones" name="observaciones" value="{{ categoria.observaciones|default:'' }}" required autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn-submit">Guardar</button>
+        <a href="/categoria/lista/" class="back-link">Cancelar y volver</a>
     </form>
+
 </body>
 </html>
