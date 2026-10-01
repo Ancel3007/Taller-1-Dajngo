@@ -1,63 +1,55 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import producto
 
 def crear(request):
     if request.method == 'POST':
-        Producto = producto(
+        prod = producto(
             nombre = request.POST["nombre"],
             categoria = request.POST["categoria"],
             precio = request.POST["precio"],
             cantidad = request.POST["cantidad"],
             estado = request.POST["estado"]
         )
-        Producto.save()
+        prod.save()
+        return redirect('/productos/lista/')
     return render(request, "formulario.html")
 
 def listar(request):
-    #Select * from productos
     productos = producto.objects.all()
     return render(
         request,
         "lista.html",
-        {"productos":productos}
+        {"productos": productos}
     )
 
-#Consultar la información de un registro
-def detalle(request,id):
-    Producto = producto.objects.get(id=id) #SELECT * FROM productos WHERE id=7
+def detalle(request, id):
+    prod = producto.objects.get(id=id)
     return render(
         request, 
         "detalle.html",
-        {"Producto": Producto})
+        {"producto": prod}
+    )
 
 def editar(request, id):
-    Producto = producto.objects.get(id=id)#SELECT * FROM productos WHERE id=7
+    prod = producto.objects.get(id=id)
     
-    if request.method=="POST":#Si se van a guardar los cambios
-        Producto.nombre = request.POST["nombre"] #Cambiar el nombre del producto
-        Producto.categoria = request.POST["categoria"] #Cambiar la categoria del producto
-        Producto.precio = request.POST["precio"] #Cambiar el precio del producto
-        Producto.cantidad = request.POST["cantidad"] #Cambiar la cantidad del producto
-        Producto.estado = request.POST["estado"] #Cambiar el estado del producto
+    if request.method == "POST":
+        prod.nombre = request.POST["nombre"]
+        prod.categoria = request.POST["categoria"]
+        prod.precio = request.POST["precio"]
+        prod.cantidad = request.POST["cantidad"]
+        prod.estado = request.POST["estado"]
 
-        Producto.save() #Guardar los cambios
+        prod.save()
+        return redirect('/productos/lista/')
 
-        return render(
-            request,
-            "detalle.html",
-            {"Producto":Producto}
-        )
     return render(
         request,
         "formulario.html",
-        {"Producto": Producto}
+        {"producto": prod}
     )
 
-def eliminar(request,id):
-    Producto = producto.objects.get(id=id)#SELECT * FROM producto WHERE id=7
-    Producto.delete() #DELETE * FROM producto WHERE id= 7
-    return render(
-            request,
-            "lista.html",
-            {"Producto":Producto}
-        )
+def eliminar(request, id):
+    prod = producto.objects.get(id=id)
+    prod.delete()
+    return redirect('/productos/lista/')
